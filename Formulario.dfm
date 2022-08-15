@@ -1,8 +1,9 @@
 object Form1: TForm1
-  Left = 397
-  Top = 185
+  Left = 600
+  Top = 225
   Width = 1185
-  Height = 747
+  Height = 705
+  HorzScrollBar.Position = 146
   Caption = 'cadastro-cliente'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,46 +17,84 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
-    Left = -6
+    Left = -152
     Top = 0
     Width = 1927
     Height = 46
     Color = 12615680
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = EASTEUROPE_CHARSET
     Font.Color = 12615680
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 3
-    object BtnExibirRelatorio: TButton
-      Left = 235
-      Top = 8
-      Width = 94
-      Height = 33
-      Caption = 'Exibir Relat'#243'rio'
+    TabOrder = 2
+    object PnlClientes: TPanel
+      Left = 25
+      Top = 5
+      Width = 116
+      Height = 35
+      Caption = 'Clientes'
+      Color = 12615680
+      Font.Charset = EASTEUROPE_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
-      OnClick = BtnExibirRelatorioClick
-    end
-    object BtnConsultarCliente: TButton
-      Left = 15
-      Top = 8
-      Width = 112
-      Height = 33
-      Caption = 'Consultar Cliente'
-      TabOrder = 1
       OnClick = BtnConsultarClienteClick
+    end
+    object PnlRelatorio: TPanel
+      Left = 150
+      Top = 5
+      Width = 116
+      Height = 35
+      Caption = 'Relat'#243'rio'
+      Color = 12615680
+      Font.Charset = EASTEUROPE_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      OnClick = BtnExibirRelatorioClick
     end
   end
   object PageContCadastro: TPageControl
-    Left = 5
+    Left = -141
     Top = 58
     Width = 1150
     Height = 599
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Consulta de Cliente'
+      object Image1: TImage
+        Left = 1118
+        Top = 3
+        Width = 24
+        Height = 24
+        AutoSize = True
+        Picture.Data = {
+          0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000018
+          000000180806000000E0773DF8000000017352474200AECE1CE9000000046741
+          4D410000B18F0BFC61050000000970485973000000CF000000CF0146B9714400
+          00001974455874536F667477617265007777772E696E6B73636170652E6F7267
+          9BEE3C1A0000012E49444154484BA595316EC23014402DD1C245BA7544765614
+          67E9017218D8DA63D04EA55555016ABB949E8A01A7EA68FE8FF22B1359CECFF7
+          932C8183DF23C116EAD79A555399A32B8BB55F2CAE5426E840173A1B5B2C31E0
+          1A6B7C3B4AF39E13C1B5E8F8F759735250D90413E24844EEE12E9E95AF6FA7CE
+          9A8FF002DCD5D6CFE7D7DDDA417C5D4F40FE1A3AE08B7FFBBB9B59F701796450
+          4E48226C393126325A4E70226239918A64CB897844EF9A52BF85732239118B5C
+          8E0C39D1453EFB727864876C39D23E73DB7F2C10A8F49E734E92C47FD020C23C
+          8C51A2F2CAFCB84A7F8573A2486A2B72CE4912CE3E174738726274648C9C6047
+          24726230922327921178F3145EC06D880BBAB56CDA486F0B43F4F1E24F5F2A27
+          22919372B67880177F305E72E4043AD0854E67F5FD1929D85BDDF7CCAF350000
+          000049454E44AE426082}
+        OnClick = Image1Click
+      end
       object DBGridCadastros: TDBGrid
         Left = 22
         Top = 88
@@ -72,13 +111,11 @@ object Form1: TForm1
           item
             Expanded = False
             FieldName = 'idcliente'
-            Width = 53
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Nome'
-            Width = 320
             Visible = True
           end
           item
@@ -89,19 +126,16 @@ object Form1: TForm1
           item
             Expanded = False
             FieldName = 'Data_Nascimento'
-            Width = 147
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Rua'
-            Width = 338
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Cidade'
-            Width = 79
             Visible = True
           end
           item
@@ -112,7 +146,6 @@ object Form1: TForm1
           item
             Expanded = False
             FieldName = 'CEP'
-            Width = 64
             Visible = True
           end>
       end
@@ -235,12 +268,13 @@ object Form1: TForm1
           Caption = 'CEP'
           FocusControl = DBEdit8
         end
-        object Label3: TLabel
+        object Label9: TLabel
           Left = 521
-          Top = 25
+          Top = 27
           Width = 97
           Height = 13
           Caption = 'Data de Nascimento'
+          FocusControl = DBEditDataNascimento
         end
         object DBEditNome: TDBEdit
           Left = 26
@@ -318,32 +352,23 @@ object Form1: TForm1
           TabOrder = 7
           OnClick = BtnCancelarClick
         end
-        object DTPDataNascimento: TDateTimePicker
+        object DBEditDataNascimento: TDBEdit
           Left = 520
-          Top = 40
-          Width = 128
-          Height = 23
-          Date = 44784.666645937500000000
-          Time = 44784.666645937500000000
+          Top = 41
+          Width = 100
+          Height = 21
+          DataField = 'Data_Nascimento'
+          DataSource = DSCliente
           TabOrder = 8
         end
       end
     end
   end
-  object BtnNovoCadastro: TButton
-    Left = 128
-    Top = 8
-    Width = 94
-    Height = 33
-    Caption = 'Novo Cadastro'
-    TabOrder = 1
-    OnClick = BtnNovoCadastroClick
-  end
   object QuickRep1: TQuickRep
-    Left = 25
-    Top = 262
-    Width = 1089
-    Height = 244
+    Left = 631
+    Top = 204
+    Width = 667
+    Height = 1010
     Frame.Color = clBlack
     Frame.DrawTop = False
     Frame.DrawBottom = False
@@ -387,7 +412,7 @@ object Form1: TForm1
     object QRBandTitulo: TQRBand
       Left = 38
       Top = 38
-      Width = 1013
+      Width = 591
       Height = 42
       Frame.Color = clBlack
       Frame.DrawTop = True
@@ -400,10 +425,10 @@ object Form1: TForm1
       ForceNewPage = False
       Size.Values = (
         111.125000000000000000
-        2680.229166666667000000)
+        1563.687500000000000000)
       BandType = rbTitle
       object QRLabel1: TQRLabel
-        Left = 311
+        Left = 100
         Top = 4
         Width = 391
         Height = 33
@@ -414,7 +439,7 @@ object Form1: TForm1
         Frame.DrawRight = False
         Size.Values = (
           87.312500000000000000
-          822.854166666666700000
+          264.583333333333300000
           10.583333333333330000
           1034.520833333333000000)
         Alignment = taCenter
@@ -437,7 +462,7 @@ object Form1: TForm1
     object QRBandDados: TQRBand
       Left = 38
       Top = 120
-      Width = 1013
+      Width = 591
       Height = 45
       Frame.Color = clBlack
       Frame.DrawTop = False
@@ -451,7 +476,7 @@ object Form1: TForm1
       ForceNewPage = False
       Size.Values = (
         119.062500000000000000
-        2680.229166666667000000)
+        1563.687500000000000000)
       BandType = rbDetail
       object QRDBNome: TQRDBText
         Left = 77
@@ -564,7 +589,7 @@ object Form1: TForm1
     object QRBandTotais: TQRBand
       Left = 38
       Top = 165
-      Width = 1013
+      Width = 591
       Height = 40
       Frame.Color = clBlack
       Frame.DrawTop = True
@@ -577,7 +602,7 @@ object Form1: TForm1
       ForceNewPage = False
       Size.Values = (
         105.833333333333300000
-        2680.229166666667000000)
+        1563.687500000000000000)
       BandType = rbSummary
       object QRLabel2: TQRLabel
         Left = 287
@@ -646,7 +671,7 @@ object Form1: TForm1
     object QRBandColunas: TQRBand
       Left = 38
       Top = 80
-      Width = 1013
+      Width = 591
       Height = 40
       Frame.Color = clBlack
       Frame.DrawTop = False
@@ -665,7 +690,7 @@ object Form1: TForm1
       ParentFont = False
       Size.Values = (
         105.833333333333300000
-        2680.229166666667000000)
+        1563.687500000000000000)
       BandType = rbColumnHeader
       object QRLabelID: TQRLabel
         Left = 20
@@ -802,10 +827,7 @@ object Form1: TForm1
       'idcliente,'
       'Nome,'
       'Sexo,'
-      
-        '--cast (FORMAT(Data_Nascimento,'#9#39'dd/MM/yyyy'#39') as date ) Data_Nas' +
-        'cimento,'
-      'CONVERT(VARCHAR,Data_Nascimento,103) Data_Nascimento,'
+      'cast (Data_Nascimento as datetime) as Data_Nascimento,'
       'Rua,'
       'Cidade,'
       'Estado,'
@@ -830,12 +852,6 @@ object Form1: TForm1
       FixedChar = True
       Size = 1
     end
-    object ADOQueryListaData_Nascimento: TStringField
-      DisplayLabel = 'Data de Nascimento'
-      FieldName = 'Data_Nascimento'
-      ReadOnly = True
-      Size = 30
-    end
     object ADOQueryListaRua: TStringField
       FieldName = 'Rua'
       Size = 50
@@ -853,6 +869,9 @@ object Form1: TForm1
       FieldName = 'CEP'
       FixedChar = True
       Size = 8
+    end
+    object ADOQueryListaData_Nascimento: TDateTimeField
+      FieldName = 'Data_Nascimento'
     end
   end
   object DSCliente: TDataSource
@@ -884,7 +903,7 @@ object Form1: TForm1
       'idcliente,'
       'Nome,'
       'Sexo,'
-      'Data_Nascimento,'
+      'cast (Data_Nascimento as datetime) as Data_Nascimento,'
       'Rua,'
       'Cidade,'
       'Estado,'
@@ -915,11 +934,6 @@ object Form1: TForm1
       FixedChar = True
       Size = 1
     end
-    object ADOQueryClientesData_Nascimento: TWideStringField
-      DisplayLabel = 'Data de Nascimento'
-      FieldName = 'Data_Nascimento'
-      Size = 10
-    end
     object ADOQueryClientesRua: TStringField
       FieldName = 'Rua'
       Size = 50
@@ -937,6 +951,11 @@ object Form1: TForm1
       FieldName = 'CEP'
       FixedChar = True
       Size = 8
+    end
+    object ADOQueryClientesData_Nascimento: TDateTimeField
+      FieldName = 'Data_Nascimento'
+      OnSetText = ADOQueryClientesData_NascimentoSetText
+      EditMask = '!99/99/9999;1;_'
     end
   end
   object DSLista: TDataSource
