@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, ADODB, Grids, DBGrids, StdCtrls, ExtCtrls, DBCtrls, Mask, DateUtils, StrUtils,
-  Buttons, ComCtrls, QRCtrls, QuickRpt;
+  Buttons, ComCtrls, QRCtrls, QuickRpt, dxGDIPlusClasses;
 
 type
   TForm1 = class(TForm)
@@ -39,17 +39,13 @@ type
     Label1: TLabel;
     DBEdit1: TDBEdit;
     BtnCancelar: TBitBtn;
-    Label3: TLabel;
     ADOQueryListaidcliente: TAutoIncField;
     ADOQueryListaNome: TStringField;
     ADOQueryListaSexo: TStringField;
-    ADOQueryListaData_Nascimento: TStringField;
     ADOQueryListaRua: TStringField;
     ADOQueryListaCidade: TStringField;
     ADOQueryListaEstado: TStringField;
     ADOQueryListaCEP: TStringField;
-    DTPDataNascimento: TDateTimePicker;
-    BtnNovoCadastro: TButton;
     QuickRep1: TQuickRep;
     QRBandTitulo: TQRBand;
     QRBandDados: TQRBand;
@@ -60,12 +56,9 @@ type
     DSLista: TDataSource;
     QRDBText1: TQRDBText;
     Panel1: TPanel;
-    BtnExibirRelatorio: TButton;
-    BtnConsultarCliente: TButton;
     ADOQueryClientesidcliente: TAutoIncField;
     ADOQueryClientesNome: TStringField;
     ADOQueryClientesSexo: TStringField;
-    ADOQueryClientesData_Nascimento: TWideStringField;
     ADOQueryClientesRua: TStringField;
     ADOQueryClientesCidade: TStringField;
     ADOQueryClientesEstado: TStringField;
@@ -78,6 +71,13 @@ type
     QRLabelNome: TQRLabel;
     QRLabelDataNascimento: TQRLabel;
     QRLabelCidade: TQRLabel;
+    Label9: TLabel;
+    DBEditDataNascimento: TDBEdit;
+    ADOQueryClientesData_Nascimento: TDateTimeField;
+    ADOQueryListaData_Nascimento: TDateTimeField;
+    PnlClientes: TPanel;
+    PnlRelatorio: TPanel;
+    Image1: TImage;
     procedure BtnNovoClick(Sender: TObject);
     procedure BtnSalvarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -90,6 +90,11 @@ type
       var PrintBand: Boolean);
     procedure BtnConsultarClienteClick(Sender: TObject);
     procedure BtnExibirRelatorioClick(Sender: TObject);
+    procedure ADOQueryClientesData_NascimentoSetText(Sender: TField;
+      const Text: String);
+    procedure Image1Click(Sender: TObject);
+
+
 
   private
     { Private declarations }
@@ -114,6 +119,7 @@ begin
 end;
 
 procedure TForm1.BtnEditarClick(Sender: TObject);
+
 begin
   ADOQueryClientes.Close;
   ADOQueryClientes.SQL[2] := 'set @IdCliente = ' + IntToStr(ADOQueryListaidcliente.Value);
@@ -126,8 +132,6 @@ end;
 
 procedure TForm1.BtnSalvarClick(Sender: TObject);
 begin
-  ADOQueryClientesData_Nascimento.AsString := DateToStr(DTPDataNascimento.Date);
-
   if ADOQueryClientes.State = Dsinsert then
   begin
     ADOQueryClientes.Post;
@@ -141,7 +145,6 @@ begin
       ShowMessage('Cadastro editado com sucesso.');
     end;
   end;
-
   ADOQueryClientes.Close;
   ADOQueryLista.Close;
   ADOQueryLista.Open;
@@ -199,11 +202,35 @@ end;
 procedure TForm1.BtnConsultarClienteClick(Sender: TObject);
 begin
   PageContCadastro.Show;
+  PageContCadastro.TabIndex := 0;
 end;
 
 procedure TForm1.BtnExibirRelatorioClick(Sender: TObject);
 begin
   QuickRep1.Preview;
+end;
+
+procedure TForm1.ADOQueryClientesData_NascimentoSetText(Sender: TField;
+  const Text: String);
+var Ano,
+    Mes,
+    Dia: Word;
+begin
+  Ano := StrToIntDef(Copy(DBEditDataNascimento.Text,7,4), 0);
+  Mes := StrToIntDef(Copy(DBEditDataNascimento.Text,4,2), 0);
+  Dia := StrToIntDef(Copy(DBEditDataNascimento.Text,1,2), 0);
+
+  if not IsValidDate(Ano, Mes, Dia) then
+  begin
+    ShowMessage('Por favor, digite uma data válida.');
+    Abort;
+  end;
+  Sender.Value := Text;
+end;
+
+procedure TForm1.Image1Click(Sender: TObject);
+begin
+  PageContCadastro.Hide;
 end;
 
 end.
