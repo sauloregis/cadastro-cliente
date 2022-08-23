@@ -1,7 +1,7 @@
 object FrmMedico: TFrmMedico
-  Left = 337
-  Top = 126
-  Width = 1305
+  Left = 596
+  Top = 111
+  Width = 1137
   Height = 699
   Caption = 'FrmMedico'
   Color = clBtnFace
@@ -11,22 +11,24 @@ object FrmMedico: TFrmMedico
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  WindowState = wsMaximized
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object PnlMenu: TPanel
     Left = 0
     Top = 0
-    Width = 1289
+    Width = 1121
     Height = 46
     Align = alTop
     Color = 9934592
     TabOrder = 0
-    object PnlClientes: TPanel
+    object PnlMedicos: TPanel
       Left = 41
       Top = 5
       Width = 116
       Height = 35
-      Caption = 'Clientes'
+      Caption = 'M'#233'dicos'
       Color = 9934592
       Font.Charset = EASTEUROPE_CHARSET
       Font.Color = clWhite
@@ -40,15 +42,15 @@ object FrmMedico: TFrmMedico
   object PnlConteudo: TPanel
     Left = 13
     Top = 50
-    Width = 592
-    Height = 586
+    Width = 589
+    Height = 506
     TabOrder = 1
-    object PageContCadastro: TPageControl
+    object PageCCadastroMedico: TPageControl
       Left = 0
       Top = 0
       Width = 1224
       Height = 615
-      ActivePage = TabSheet1
+      ActivePage = TabSheet2
       Align = alCustom
       TabOrder = 0
       object TabSheet1: TTabSheet
@@ -80,10 +82,10 @@ object FrmMedico: TFrmMedico
             043AD0854E67F5FD1929D85BDDF7CCAF350000000049454E44AE426082}
         end
         object DBGridCadastros: TDBGrid
-          Left = 22
-          Top = 86
-          Width = 541
-          Height = 400
+          Left = 21
+          Top = 104
+          Width = 546
+          Height = 308
           DataSource = DSListaMedica
           FixedColor = clWhite
           TabOrder = 0
@@ -101,60 +103,104 @@ object FrmMedico: TFrmMedico
             item
               Expanded = False
               FieldName = 'Nome'
-              Width = 365
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'CRM'
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'Sexo'
               Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'CRM'
+              Visible = True
             end>
         end
-        object BtnNovo: TBitBtn
-          Left = 22
-          Top = 495
+        object BtnNovoMedico: TBitBtn
+          Left = 20
+          Top = 425
           Width = 99
           Height = 40
           Caption = 'Novo'
           TabOrder = 1
+          OnClick = BtnNovoMedicoClick
         end
         object GbxConsultaNome: TGroupBox
-          Left = 22
-          Top = 21
-          Width = 353
-          Height = 57
+          Left = 21
+          Top = 8
+          Width = 510
+          Height = 80
           Caption = 'Consultar por Nome'
-          Color = clWhite
+          Color = clBtnFace
           ParentColor = False
           TabOrder = 2
-          object EdtConsultaNome: TEdit
-            Left = 9
-            Top = 22
+          object LblBuscar: TLabel
+            Left = 166
+            Top = 26
+            Width = 40
+            Height = 13
+            Caption = 'Buscar'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object LblTipodeConsulta: TLabel
+            Left = 8
+            Top = 27
+            Width = 97
+            Height = 13
+            Caption = 'Tipo de Consulta'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object EdtConsultaNomeMedico: TEdit
+            Left = 166
+            Top = 45
             Width = 328
             Height = 21
             TabOrder = 0
+            OnChange = EdtConsultaNomeMedicoChange
+          end
+          object CBoxTipodeConsulta: TComboBox
+            Left = 11
+            Top = 46
+            Width = 145
+            Height = 21
+            ItemHeight = 13
+            ItemIndex = 1
+            TabOrder = 1
+            Text = 'Nome'
+            Items.Strings = (
+              'Id Medico'
+              'Nome'
+              'Sexo'
+              'CRM')
           end
         end
-        object BtnEditar: TBitBtn
-          Left = 133
-          Top = 495
+        object BtnEditarMedico: TBitBtn
+          Left = 132
+          Top = 425
           Width = 99
           Height = 40
           Caption = 'Editar'
           TabOrder = 3
+          OnClick = BtnEditarMedicoClick
         end
         object BtnExcluir: TBitBtn
-          Left = 247
-          Top = 495
+          Left = 245
+          Top = 425
           Width = 99
           Height = 40
           Caption = 'Excluir'
           TabOrder = 4
+          OnClick = BtnExcluirClick
         end
         object DBEdit1: TDBEdit
           Left = 546
@@ -176,80 +222,103 @@ object FrmMedico: TFrmMedico
           Caption = 'Nome'
           FocusControl = DBEdit1
         end
-        object GroupBox1: TGroupBox
+        object GBoxCadastroMedico: TGroupBox
           Left = 11
           Top = 9
           Width = 420
-          Height = 186
+          Height = 128
           Caption = 'Cadastro M'#233'dico'
           TabOrder = 0
           object Label3: TLabel
             Left = 19
             Top = 25
-            Width = 28
+            Width = 33
             Height = 13
             Caption = 'Nome'
             FocusControl = DBEditNomeMedico
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
           end
           object Label4: TLabel
-            Left = 19
-            Top = 69
-            Width = 24
+            Left = 23
+            Top = 70
+            Width = 29
             Height = 13
             Caption = 'Sexo'
-            FocusControl = DBEditSexoMedico
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
           end
           object Label5: TLabel
-            Left = 63
-            Top = 71
-            Width = 24
+            Left = 87
+            Top = 70
+            Width = 28
             Height = 13
             Caption = 'CRM'
             FocusControl = DBEditCRM
-          end
-          object BtnSalvar: TBitBtn
-            Left = 25
-            Top = 124
-            Width = 99
-            Height = 40
-            Caption = 'Salvar'
-            TabOrder = 0
-          end
-          object BtnCancelar: TBitBtn
-            Left = 138
-            Top = 124
-            Width = 99
-            Height = 40
-            Caption = 'Cancelar'
-            TabOrder = 1
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
           end
           object DBEditNomeMedico: TDBEdit
-            Left = 19
+            Left = 21
             Top = 39
             Width = 381
             Height = 21
             DataField = 'Nome'
             DataSource = DSCadastroMedico
-            TabOrder = 2
-          end
-          object DBEditSexoMedico: TDBEdit
-            Left = 19
-            Top = 85
-            Width = 24
-            Height = 21
-            DataField = 'Sexo'
-            DataSource = DSCadastroMedico
-            TabOrder = 3
+            TabOrder = 0
           end
           object DBEditCRM: TDBEdit
-            Left = 63
-            Top = 85
+            Left = 87
+            Top = 87
             Width = 134
             Height = 21
             DataField = 'CRM'
             DataSource = DSCadastroMedico
-            TabOrder = 4
+            TabOrder = 1
           end
+          object DBcboxSexo: TDBComboBox
+            Left = 21
+            Top = 87
+            Width = 62
+            Height = 21
+            DataField = 'Sexo'
+            DataSource = DSCadastroMedico
+            ItemHeight = 13
+            Items.Strings = (
+              'M'
+              'F')
+            TabOrder = 2
+          end
+        end
+        object BtnCancelar: TBitBtn
+          Left = 124
+          Top = 145
+          Width = 99
+          Height = 40
+          Caption = 'Cancelar'
+          TabOrder = 1
+          OnClick = BtnCancelarClick
+        end
+        object BtnSalvarMedico: TBitBtn
+          Left = 11
+          Top = 145
+          Width = 99
+          Height = 40
+          Caption = 'Salvar'
+          TabOrder = 2
+          OnClick = BtnSalvarMedicoClick
         end
       end
     end
@@ -268,7 +337,7 @@ object FrmMedico: TFrmMedico
     Connection = FrmPrincipal.ADOConnectionCliente
     Parameters = <>
     SQL.Strings = (
-      'select * from [dbo.Medico]')
+      'select * from Medico')
     Left = 234
     Top = 275
     object QRYListaMedicaIdmedico: TIntegerField
@@ -292,7 +361,15 @@ object FrmMedico: TFrmMedico
     Connection = FrmPrincipal.ADOConnectionCliente
     Parameters = <>
     SQL.Strings = (
-      'select * from [dbo.Medico]')
+      'declare @Idmedico integer'
+      ''
+      'set @Idmedico = 1'
+      ''
+      'select * '
+      'from Medico'
+      ''
+      'where Idmedico = @Idmedico'
+      '')
     Left = 659
     Top = 79
     object QRYCadastroMedicoIdmedico: TIntegerField
