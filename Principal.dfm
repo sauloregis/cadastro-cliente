@@ -1,8 +1,8 @@
 object FrmPrincipal: TFrmPrincipal
-  Left = 282
-  Top = 142
-  Width = 1305
-  Height = 675
+  Left = 435
+  Top = 481
+  Width = 1173
+  Height = 182
   Caption = 'FrmPrincipal'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -12,6 +12,7 @@ object FrmPrincipal: TFrmPrincipal
   Font.Style = []
   Menu = MainMenu1
   OldCreateOrder = False
+  WindowState = wsMaximized
   PixelsPerInch = 96
   TextHeight = 13
   object MainMenu1: TMainMenu
@@ -32,9 +33,11 @@ object FrmPrincipal: TFrmPrincipal
       Caption = 'Atendimentos'
       object NovoAtendimento1: TMenuItem
         Caption = 'Novo Atendimento'
+        OnClick = NovoAtendimento1Click
       end
       object ConsultarAtendimento1: TMenuItem
         Caption = 'Consultar Atendimento'
+        OnClick = ConsultarAtendimento1Click
       end
     end
     object Relatrios1: TMenuItem

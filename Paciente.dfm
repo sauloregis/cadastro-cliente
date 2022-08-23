@@ -1021,17 +1021,11 @@ object FrmPacientes: TFrmPacientes
   object ADOQueryClientes: TADOQuery
     Connection = FrmPrincipal.ADOConnectionCliente
     CursorType = ctStatic
-    Parameters = <
-      item
-        Name = 'idcliente'
-        DataType = ftInteger
-        Size = -1
-        Value = Null
-      end>
+    Parameters = <>
     SQL.Strings = (
       'declare @IdCliente integer'
       ''
-      'set @IdCliente = :idcliente'
+      'set @IdCliente = 1'
       ''
       'select'
       'idcliente,'

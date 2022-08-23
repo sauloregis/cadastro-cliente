@@ -129,7 +129,7 @@ end;
 procedure TFrmPacientes.BtnEditarClick(Sender: TObject);
 begin
   ADOQueryClientes.Close;
-  ADOQueryClientes.Parameters.ParamByName('idcliente').Value := ADOQueryListaidcliente.Value;
+  ADOQueryClientes.SQL[2] := 'set @IdCliente = ' + IntToStr(ADOQueryListaidcliente.Value);
   ADOQueryClientes.Open;
   ADOQueryClientes.Edit;
   PageContCadastro.TabIndex := 1;
