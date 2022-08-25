@@ -1,6 +1,6 @@
 object FrmPacientes: TFrmPacientes
-  Left = 376
-  Top = 205
+  Left = 313
+  Top = 138
   Align = alCustom
   BorderStyle = bsSingle
   Caption = 'cadastro-cliente'
@@ -75,7 +75,7 @@ object FrmPacientes: TFrmPacientes
     Frame.DrawBottom = False
     Frame.DrawLeft = False
     Frame.DrawRight = False
-    DataSet = ADOQueryLista
+    DataSet = QryLista
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -200,7 +200,7 @@ object FrmPacientes: TFrmPacientes
         AutoSize = False
         AutoStretch = False
         Color = clWhite
-        DataSet = ADOQueryLista
+        DataSet = QryLista
         DataField = 'Nome'
         Transparent = True
         WordWrap = True
@@ -227,7 +227,7 @@ object FrmPacientes: TFrmPacientes
         AutoSize = True
         AutoStretch = False
         Color = clWhite
-        DataSet = ADOQueryLista
+        DataSet = QryLista
         DataField = 'idcliente'
         Transparent = True
         WordWrap = True
@@ -254,7 +254,7 @@ object FrmPacientes: TFrmPacientes
         AutoSize = True
         AutoStretch = False
         Color = clWhite
-        DataSet = ADOQueryLista
+        DataSet = QryLista
         DataField = 'Data_Nascimento'
         Transparent = True
         WordWrap = True
@@ -280,7 +280,7 @@ object FrmPacientes: TFrmPacientes
         AutoSize = True
         AutoStretch = False
         Color = clWhite
-        DataSet = ADOQueryLista
+        DataSet = QryLista
         DataField = 'Cidade'
         Transparent = True
         WordWrap = True
@@ -520,14 +520,15 @@ object FrmPacientes: TFrmPacientes
     end
   end
   object PnlConteudo: TPanel
-    Left = 13
-    Top = 62
-    Width = 1191
+    Left = 0
+    Top = 46
+    Width = 1208
     Height = 559
+    Align = alCustom
     TabOrder = 2
     Visible = False
     object PageContCadastro: TPageControl
-      Left = 0
+      Left = 1
       Top = 0
       Width = 1224
       Height = 615
@@ -571,6 +572,7 @@ object FrmPacientes: TFrmPacientes
           Height = 352
           DataSource = DSLista
           FixedColor = clWhite
+          ReadOnly = True
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
@@ -604,7 +606,7 @@ object FrmPacientes: TFrmPacientes
             item
               Expanded = False
               FieldName = 'Rua'
-              Width = 268
+              Width = 229
               Visible = True
             end
             item
@@ -622,7 +624,7 @@ object FrmPacientes: TFrmPacientes
             item
               Expanded = False
               FieldName = 'CEP'
-              Width = 92
+              Width = 112
               Visible = True
             end>
         end
@@ -683,6 +685,7 @@ object FrmPacientes: TFrmPacientes
             Top = 37
             Width = 145
             Height = 21
+            Style = csDropDownList
             ItemHeight = 13
             ItemIndex = 1
             TabOrder = 1
@@ -728,9 +731,6 @@ object FrmPacientes: TFrmPacientes
       object TabSheet2: TTabSheet
         Caption = 'Cadastro de Paciente'
         ImageIndex = 1
-        DesignSize = (
-          1216
-          587)
         object Label1: TLabel
           Left = 546
           Top = -23
@@ -740,11 +740,10 @@ object FrmPacientes: TFrmPacientes
           FocusControl = DBEdit1
         end
         object ImgFechar2: TImage
-          Left = 1156
-          Top = 3
+          Left = 686
+          Top = 2
           Width = 24
           Height = 24
-          Anchors = [akTop, akRight]
           AutoSize = True
           Picture.Data = {
             0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000018
@@ -764,15 +763,15 @@ object FrmPacientes: TFrmPacientes
           OnClick = ImgFecharClick
         end
         object GroupBox1: TGroupBox
-          Left = 11
+          Left = 12
           Top = 9
-          Width = 745
+          Width = 662
           Height = 229
           Caption = 'Cadastro de Paciente'
           TabOrder = 0
           object Label2: TLabel
             Left = 26
-            Top = 29
+            Top = 23
             Width = 33
             Height = 13
             Caption = 'Nome'
@@ -786,7 +785,7 @@ object FrmPacientes: TFrmPacientes
           end
           object Label4: TLabel
             Left = 452
-            Top = 27
+            Top = 23
             Width = 29
             Height = 13
             Caption = 'Sexo'
@@ -803,7 +802,7 @@ object FrmPacientes: TFrmPacientes
             Width = 24
             Height = 13
             Caption = 'Rua'
-            FocusControl = DBEdit5
+            FocusControl = EdtRua
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -813,11 +812,11 @@ object FrmPacientes: TFrmPacientes
           end
           object Label6: TLabel
             Left = 28
-            Top = 116
+            Top = 114
             Width = 40
             Height = 13
             Caption = 'Cidade'
-            FocusControl = DBEdit6
+            FocusControl = EdtCidade
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -831,7 +830,6 @@ object FrmPacientes: TFrmPacientes
             Width = 40
             Height = 13
             Caption = 'Estado'
-            FocusControl = DBEdit7
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -841,11 +839,11 @@ object FrmPacientes: TFrmPacientes
           end
           object Label8: TLabel
             Left = 142
-            Top = 116
+            Top = 114
             Width = 25
             Height = 13
             Caption = 'CEP'
-            FocusControl = DBEdit8
+            FocusControl = EdtCEP
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -855,7 +853,7 @@ object FrmPacientes: TFrmPacientes
           end
           object Label9: TLabel
             Left = 521
-            Top = 27
+            Top = 23
             Width = 116
             Height = 13
             Caption = 'Data de Nascimento'
@@ -869,7 +867,7 @@ object FrmPacientes: TFrmPacientes
           end
           object DBEditNome: TDBEdit
             Left = 26
-            Top = 43
+            Top = 41
             Width = 404
             Height = 21
             DataField = 'Nome'
@@ -877,10 +875,11 @@ object FrmPacientes: TFrmPacientes
             TabOrder = 0
           end
           object DBComboBox1: TDBComboBox
-            Left = 453
-            Top = 42
+            Left = 450
+            Top = 41
             Width = 50
             Height = 21
+            Style = csDropDownList
             DataField = 'Sexo'
             DataSource = DSCliente
             ItemHeight = 13
@@ -889,16 +888,16 @@ object FrmPacientes: TFrmPacientes
               'F')
             TabOrder = 1
           end
-          object DBEdit5: TDBEdit
+          object EdtRua: TDBEdit
             Left = 26
             Top = 87
-            Width = 691
+            Width = 612
             Height = 21
             DataField = 'Rua'
             DataSource = DSCliente
             TabOrder = 2
           end
-          object DBEdit6: TDBEdit
+          object EdtCidade: TDBEdit
             Left = 28
             Top = 132
             Width = 101
@@ -907,23 +906,14 @@ object FrmPacientes: TFrmPacientes
             DataSource = DSCliente
             TabOrder = 3
           end
-          object DBEdit7: TDBEdit
-            Left = 266
-            Top = 130
-            Width = 50
-            Height = 21
-            DataField = 'Estado'
-            DataSource = DSCliente
-            TabOrder = 4
-          end
-          object DBEdit8: TDBEdit
-            Left = 141
-            Top = 131
+          object EdtCEP: TDBEdit
+            Left = 143
+            Top = 132
             Width = 108
             Height = 21
             DataField = 'CEP'
             DataSource = DSCliente
-            TabOrder = 5
+            TabOrder = 4
           end
           object BtnSalvar: TBitBtn
             Left = 27
@@ -931,7 +921,7 @@ object FrmPacientes: TFrmPacientes
             Width = 99
             Height = 40
             Caption = 'Salvar'
-            TabOrder = 6
+            TabOrder = 5
             OnClick = BtnSalvarClick
           end
           object BtnCancelar: TBitBtn
@@ -940,83 +930,113 @@ object FrmPacientes: TFrmPacientes
             Width = 99
             Height = 40
             Caption = 'Cancelar'
-            TabOrder = 7
+            TabOrder = 6
             OnClick = BtnCancelarClick
           end
           object DBEditDataNascimento: TDBEdit
             Left = 520
             Top = 41
-            Width = 100
+            Width = 118
             Height = 21
             DataField = 'Data_Nascimento'
             DataSource = DSCliente
+            TabOrder = 7
+          end
+          object CBoxEstado: TDBComboBox
+            Left = 265
+            Top = 132
+            Width = 50
+            Height = 21
+            Style = csDropDownList
+            DataField = 'Estado'
+            DataSource = DSCliente
+            ItemHeight = 13
+            Items.Strings = (
+              'AC'
+              'AL'
+              'AP'
+              'AM'
+              'BA'
+              'CE'
+              'DF'
+              'ES'
+              'GO'
+              'MA'
+              'MT'
+              'MS'
+              'MG'
+              'PA'
+              'PB'
+              'PR'
+              'PE'
+              'PI'
+              'RJ'
+              'RN'
+              'RS'
+              'RO'
+              'RR'
+              'SC'
+              'SP'
+              'SE'
+              'TO')
             TabOrder = 8
           end
         end
       end
     end
   end
-  object ADOQueryLista: TADOQuery
+  object QryLista: TADOQuery
     Connection = FrmPrincipal.ADOConnectionCliente
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'select'
-      'idcliente,'
-      'Nome,'
-      'Sexo,'
-      'cast (Data_Nascimento as datetime) as Data_Nascimento,'
-      'Rua,'
-      'Cidade,'
-      'Estado,'
-      'CEP'
+      'select * from Cliente'
       ''
-      'from Cliente'
       'order by idcliente'
       ''
       '')
-    Left = 882
-    Top = 92
-    object ADOQueryListaidcliente: TAutoIncField
+    Left = 110
+    Top = 312
+    object QryListaidcliente: TAutoIncField
       FieldName = 'idcliente'
       ReadOnly = True
     end
-    object ADOQueryListaNome: TStringField
+    object QryListaNome: TStringField
       FieldName = 'Nome'
       Size = 80
     end
-    object ADOQueryListaSexo: TStringField
+    object QryListaSexo: TStringField
       FieldName = 'Sexo'
       FixedChar = True
       Size = 1
     end
-    object ADOQueryListaRua: TStringField
+    object QryListaRua: TStringField
       FieldName = 'Rua'
       Size = 50
     end
-    object ADOQueryListaCidade: TStringField
+    object QryListaCidade: TStringField
       FieldName = 'Cidade'
       Size = 50
     end
-    object ADOQueryListaEstado: TStringField
+    object QryListaEstado: TStringField
       FieldName = 'Estado'
       FixedChar = True
       Size = 2
     end
-    object ADOQueryListaCEP: TStringField
+    object QryListaCEP: TStringField
       FieldName = 'CEP'
       FixedChar = True
       Size = 8
     end
-    object ADOQueryListaData_Nascimento: TDateTimeField
+    object QryListaData_Nascimento: TDateTimeField
       DisplayLabel = 'Data de Nascimento'
       FieldName = 'Data_Nascimento'
     end
   end
   object DSCliente: TDataSource
     DataSet = ADOQueryClientes
-    Left = 971
-    Top = 96
+    Left = 199
+    Top = 316
   end
   object ADOQueryClientes: TADOQuery
     Connection = FrmPrincipal.ADOConnectionCliente
@@ -1047,8 +1067,8 @@ object FrmPacientes: TFrmPacientes
       ''
       ''
       '')
-    Left = 1042
-    Top = 93
+    Left = 270
+    Top = 313
     object ADOQueryClientesidcliente: TAutoIncField
       FieldName = 'idcliente'
       ReadOnly = True
@@ -1088,8 +1108,8 @@ object FrmPacientes: TFrmPacientes
     end
   end
   object DSLista: TDataSource
-    DataSet = ADOQueryLista
-    Left = 820
-    Top = 94
+    DataSet = QryLista
+    Left = 48
+    Top = 314
   end
 end
