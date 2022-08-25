@@ -1,8 +1,8 @@
 object FrmAtendimentos: TFrmAtendimentos
-  Left = 614
-  Top = 194
+  Left = 208
+  Top = 0
   Width = 1225
-  Height = 774
+  Height = 735
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'FrmAtendimentos'
   Color = clWhite

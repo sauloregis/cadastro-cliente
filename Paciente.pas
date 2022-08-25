@@ -9,16 +9,16 @@ uses
 
 type
   TFrmPacientes = class(TForm)
-    ADOQueryLista: TADOQuery;
+    QryLista: TADOQuery;
     DSCliente: TDataSource;
     ADOQueryClientes: TADOQuery;
-    ADOQueryListaidcliente: TAutoIncField;
-    ADOQueryListaNome: TStringField;
-    ADOQueryListaSexo: TStringField;
-    ADOQueryListaRua: TStringField;
-    ADOQueryListaCidade: TStringField;
-    ADOQueryListaEstado: TStringField;
-    ADOQueryListaCEP: TStringField;
+    QryListaidcliente: TAutoIncField;
+    QryListaNome: TStringField;
+    QryListaSexo: TStringField;
+    QryListaRua: TStringField;
+    QryListaCidade: TStringField;
+    QryListaEstado: TStringField;
+    QryListaCEP: TStringField;
     QuickRep1: TQuickRep;
     QRBandTitulo: TQRBand;
     QRBandDados: TQRBand;
@@ -45,7 +45,7 @@ type
     QRLabelDataNascimento: TQRLabel;
     QRLabelCidade: TQRLabel;
     ADOQueryClientesData_Nascimento: TDateTimeField;
-    ADOQueryListaData_Nascimento: TDateTimeField;
+    QryListaData_Nascimento: TDateTimeField;
     PnlClientes: TPanel;
     PnlRelatorio: TPanel;
     PnlConteudo: TPanel;
@@ -71,10 +71,9 @@ type
     Label9: TLabel;
     DBEditNome: TDBEdit;
     DBComboBox1: TDBComboBox;
-    DBEdit5: TDBEdit;
-    DBEdit6: TDBEdit;
-    DBEdit7: TDBEdit;
-    DBEdit8: TDBEdit;
+    EdtRua: TDBEdit;
+    EdtCidade: TDBEdit;
+    EdtCEP: TDBEdit;
     BtnSalvar: TBitBtn;
     BtnCancelar: TBitBtn;
     DBEditDataNascimento: TDBEdit;
@@ -82,6 +81,7 @@ type
     LblTipodeConsulta: TLabel;
     LblBuscar: TLabel;
     CBoxTipodeConsulta: TComboBox;
+    CBoxEstado: TDBComboBox;
     procedure BtnNovoClick(Sender: TObject);
     procedure BtnSalvarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -129,7 +129,7 @@ end;
 procedure TFrmPacientes.BtnEditarClick(Sender: TObject);
 begin
   ADOQueryClientes.Close;
-  ADOQueryClientes.SQL[2] := 'set @IdCliente = ' + IntToStr(ADOQueryListaidcliente.Value);
+  ADOQueryClientes.SQL[2] := 'set @IdCliente = ' + IntToStr(QryListaidcliente.Value);
   ADOQueryClientes.Open;
   ADOQueryClientes.Edit;
   PageContCadastro.TabIndex := 1;
@@ -139,6 +139,13 @@ end;
 
 procedure TFrmPacientes.BtnSalvarClick(Sender: TObject);
 begin
+  if (DBEditNome.Text = '') then
+  begin
+    ShowMessage('Por favor, digite o nome do paciente.');
+    DBEditNome.SetFocus;
+    Abort;
+  end;
+  
   if ADOQueryClientes.State = Dsinsert then
   begin
     ADOQueryClientes.Post;
@@ -157,38 +164,47 @@ begin
     FrmPacientes.Close;
 
   ADOQueryClientes.Close;
-  ADOQueryLista.Close;
-  ADOQueryLista.Open;
+  QryLista.Close;
+  QryLista.Open;
   PageContCadastro.TabIndex := 0;
 end;
 
 procedure TFrmPacientes.FormShow(Sender: TObject);
 begin
   QuickRep1.Hide;
-  ADOQueryLista.Open;
+  QryLista.Open;
 end;
 
 procedure TFrmPacientes.EdtConsultaNomeChange(Sender: TObject);
 begin
-  ADOQueryLista.SQL.Clear;
-  case CBoxTipodeConsulta.ItemIndex of
-    0:ADOQueryLista.SQL.Add('select * from Cliente where idcliente like ''%' + EdtConsultaNome.Text + '%''');
-    1:ADOQueryLista.SQL.Add('select * from Cliente where Nome like ''%' + EdtConsultaNome.Text + '%''');
-    2:ADOQueryLista.SQL.Add('select * from Cliente where Sexo like ''%' + EdtConsultaNome.Text + '%''');
-    3:ADOQueryLista.SQL.Add('select * from Cliente where Data_Nascimento like ''%' + EdtConsultaNome.Text + '%''');
-    4:ADOQueryLista.SQL.Add('select * from Cliente where Rua like ''%' + EdtConsultaNome.Text + '%''');
-    5:ADOQueryLista.SQL.Add('select * from Cliente where Cidade like ''%' + EdtConsultaNome.Text + '%''');
-    6:ADOQueryLista.SQL.Add('select * from Cliente where Estado like ''%' + EdtConsultaNome.Text + '%''');
-    7:ADOQueryLista.SQL.Add('select * from Cliente where CEP like ''%' + EdtConsultaNome.Text + '%''');
+
+  if (EdtConsultaNome.Text = '''') then
+  begin
+     EdtConsultaNome.Text := '';
+     ShowMessage('Você está utilizando caracteres inválidos, por favor, refaça a busca.');
+     Abort;
+     EdtConsultaNome.SetFocus;
   end;
-  ADOQueryLista.Open;
+  QryLista.Close;
+
+  case CBoxTipodeConsulta.ItemIndex of
+    0:QryLista.SQL[1] := 'where idcliente like '+ QuotedStr('%' + EdtConsultaNome.Text + '%');
+    1:QryLista.SQL[1] := 'where Nome like ' + QuotedStr('%' + EdtConsultaNome.Text + '%');
+    2:QryLista.SQL[1] := 'where Sexo like ' + QuotedStr('%' + EdtConsultaNome.Text + '%');
+    3:QryLista.SQL[1] := 'where Data_Nascimento like ' + QuotedStr('%' + EdtConsultaNome.Text + '%');
+    4:QryLista.SQL[1] := 'where Rua like ' + QuotedStr('%' + EdtConsultaNome.Text + '%');
+    5:QryLista.SQL[1] := 'where Cidade like ' + QuotedStr('%' + EdtConsultaNome.Text + '%');
+    6:QryLista.SQL[1] := 'where Estado like ' + QuotedStr('%' + EdtConsultaNome.Text + '%');
+    7:QryLista.SQL[1] := 'where CEP like ' + QuotedStr('%' + EdtConsultaNome.Text + '%');
+  end;
+  QryLista.Open;
   EdtConsultaNome.SetFocus;
 end;
 
 procedure TFrmPacientes.BtnExcluirClick(Sender: TObject);
 begin
   if Application.MessageBox('Deseja excluir esse registro?', 'Excluir registro', MB_YESNO + MB_ICONQUESTION) = mrYes then
-  ADOQueryLista.Delete;
+  QryLista.Delete;
 end;
 
 procedure TFrmPacientes.BtnCancelarClick(Sender: TObject);
@@ -242,6 +258,12 @@ begin
   Mes := StrToIntDef(Copy(DBEditDataNascimento.Text,4,2), 0);
   Dia := StrToIntDef(Copy(DBEditDataNascimento.Text,1,2), 0);
 
+  if Ano < 1800 then
+  begin
+    ShowMessage('Por favor, digite uma data válida.');
+    Abort;
+  end;
+
   if not IsValidDate(Ano, Mes, Dia) then
   begin
     ShowMessage('Por favor, digite uma data válida.');
@@ -258,8 +280,19 @@ end;
 
 procedure TFrmPacientes.PageContCadastroChange(Sender: TObject);
 begin
+  if (PageContCadastro.ActivePageIndex = 0) then
+  begin
+    PnlConteudo.Width := 1216;
+    PnlConteudo.Height := 587;
+  end
+  else
+  begin
+    PnlConteudo.Width := 734;
+    PnlConteudo.Height := 282;
+  end;
+
   ADOQueryClientes.Close;
-  ADOQueryClientes.SQL[2] := 'set @IdCliente = ' + IntToStr(ADOQueryListaidcliente.Value);
+  ADOQueryClientes.SQL[2] := 'set @IdCliente = ' + IntToStr(QryListaidcliente.Value);
   ADOQueryClientes.Open;
   ADOQueryClientes.Edit;
 end;
